@@ -4,34 +4,41 @@ const Planet = mongoose.model("Planet");
 
 class PlanetController {
 
-    index(req, res) {
+    getAll(req, res) {
         Planet.find({})
-            .then(planets => res.render("index", {planets}))
+            .then(planets => res.json(planets))
             .catch(err => res.json(err));
     }
 
     create(req, res){
         // only doing this because we have a checkbox...
         // seriously you don't need to do this if you don't
-        req.body.hasRings = req.body.hasRings !== undefined;
+        // req.body.hasRings = req.body.hasRings !== undefined;
         let planet = new Planet(req.body);
         planet.save()
-            .then(() => res.redirect("/"))
+            .then(() => res.json({"msg": "ok"}))
             .catch(err => res.json(err));
     }
 
-    edit(req, res) {
+    getOne(req, res) {
         let _id = req.params._id;
         Planet.findOne({_id})
-            .then(planet => res.render("edit", {planet}))
+            .then(planet => res.json(planet))
             .catch(err => res.json(err));
     }
 
     update(req, res) {
         let _id = req.params._id;
-        req.body.hasRings = req.body.hasRings !== undefined;
+        // req.body.hasRings = req.body.hasRings !== undefined;
         Planet.findByIdAndUpdate({_id}, req.body, {runValidators: true})
-            .then( () => res.redirect("/"))
+            .then( () => res.json({"msg": "ok"}))
+            .catch(err => res.json(err));
+    }
+
+    delete(req, res) {
+        let _id = req.params._id;
+        Planet.findByIdAndDelete({_id})
+            .then( () => res.json({"msg": "ok"}))
             .catch(err => res.json(err));
     }
 

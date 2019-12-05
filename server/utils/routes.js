@@ -2,8 +2,9 @@ console.log("routes.js is running");
 const Planets = require("../controllers/planets");
 
 module.exports = function(app) {
-    app.get("/", Planets.index);
-    app.post("/planet", Planets.create);
-    app.get("/planet/:_id", Planets.edit);
-    app.post("/planet/:_id", Planets.update);
+    app.get("/planets", Planets.getAll);
+    app.post("/planets", Planets.create);
+    app.get("/planets/:_id", Planets.getOne);
+    app.put("/planets/:_id", Planets.update);
+    app.delete("/planets/:_id", Planets.delete);
 }
