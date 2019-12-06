@@ -1,0 +1,17 @@
+<h1>Planets are cool</h1>
+
+<table border=1>
+  <tr>
+    <th>Name</th>
+    <th>Color</th>
+    <th>Number of Moons</th>
+    <th>Has Rings?</th>
+  </tr>
+  <tr *ngFor="let planet of planets">
+    <td>{{ planet.name }}</td>
+    <td>{{ planet.color }}</td>
+    <td>{{ planet.numMoons }}</td>
+    <td *ngIf="planet.hasRings">Yep</td>
+    <td *ngIf="!planet.hasRings">Nope</td>
+  </tr>
+</table>
