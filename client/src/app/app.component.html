@@ -1,11 +1,63 @@
 <h1>Planets are cool</h1>
 
+<!-- <p>{{ newPlanet | json }}</p> -->
+
+<fieldset *ngIf="isUpdating">
+    <legend>Update a Planet</legend>
+    <form (submit)="updatePlanet(onePlanet._id)">
+      <div>
+        Name: 
+        <input type="text" name="onePlanet.name" [(ngModel)]="onePlanet.name">
+        <span *ngIf="error2s.name">{{ error2s.name.message }}</span>
+      </div>
+      <div>
+        Color: 
+        <input type="text" name="onePlanet.color" [(ngModel)]="onePlanet.color">
+        <span *ngIf="error2s.color">{{ error2s.color.message }}</span>
+      </div>
+      <div>
+        # Moons: 
+        <input type="number" name="onePlanet.numMoons" [(ngModel)]="onePlanet.numMoons">
+        <span *ngIf="error2s.numMoons">{{ error2s.numMoons.message }}</span>
+      </div>
+      <div>Has Rings?: <input type="checkbox" name="onePlanet.hasRings" [(ngModel)]="onePlanet.hasRings" checked></div>
+      <input type="submit" value="Update that planet!">
+      <button (click)="cancel()">Cancel that update!</button>
+    </form>
+  </fieldset>
+
+<fieldset *ngIf="!isUpdating">
+  <legend>Add a Planet</legend>
+  <form (submit)="addPlanet()">
+    <div>
+      Name: 
+      <input type="text" name="newPlanet.name" [(ngModel)]="newPlanet.name">
+      <span *ngIf="errors.name">{{ errors.name.message }}</span>
+    </div>
+    <div>
+      Color: 
+      <input type="text" name="newPlanet.color" [(ngModel)]="newPlanet.color">
+      <span *ngIf="errors.color">{{ errors.color.message }}</span>
+    </div>
+    <div>
+      # Moons: 
+      <input type="number" name="newPlanet.numMoons" [(ngModel)]="newPlanet.numMoons">
+      <span *ngIf="errors.numMoons">{{ errors.numMoons.message }}</span>
+    </div>
+    <div>Has Rings?: <input type="checkbox" name="newPlanet.hasRings" [(ngModel)]="newPlanet.hasRings"></div>
+    <input type="submit" value="Add your planet!">
+  </form>
+</fieldset>
+
+<br><hr><br>
+
 <table border=1>
   <tr>
     <th>Name</th>
     <th>Color</th>
     <th>Number of Moons</th>
     <th>Has Rings?</th>
+    <th>Edit?</th>
   </tr>
   <tr *ngFor="let planet of planets">
     <td>{{ planet.name }}</td>
@@ -13,5 +65,6 @@
     <td>{{ planet.numMoons }}</td>
     <td *ngIf="planet.hasRings">Yep</td>
     <td *ngIf="!planet.hasRings">Nope</td>
+    <td><button (click)="edit(planet._id)">Edit</button></td>
   </tr>
 </table>

@@ -11,9 +11,10 @@ class PlanetController {
     }
 
     create(req, res){
+        console.log(req.body);
         // only doing this because we have a checkbox...
         // seriously you don't need to do this if you don't
-        // req.body.hasRings = req.body.hasRings !== undefined;
+        req.body.hasRings = req.body.hasRings !== undefined;
         let planet = new Planet(req.body);
         planet.save()
             .then(() => res.json({"msg": "ok"}))

@@ -18,4 +18,16 @@ export class HttpService {
     return this._http.get("/planets");
   }
 
+  getOnePlanet(_id) {
+    return this._http.get(`/planets/${_id}`);
+  }
+
+  createPlanet(planetData: any) : Observable<any> {
+    return this._http.post("/planets", planetData);
+  }
+
+  updatePlanet(_id, planetData) {
+    return this._http.put(`/planets/${_id}`, planetData);
+  }
+
 }

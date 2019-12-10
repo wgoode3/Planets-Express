@@ -5,16 +5,18 @@ const mongoose = require("mongoose");
 const PlanetSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        required: [true, "I am a custom error message!"],
         minlength: [2, "Planet name must 2 characters or more"]
     },
     color: {
         type: String,
-        required: true
+        minlength: [2, "Planet color must 3 characters or more"],
+        required: [true, "Your planet must have a color!"]
     },
     numMoons: {
         type: Number,
-        required: true
+        min: [0, "Your planet is not allowd to have negative moons!"],
+        default: 0
     },
     hasRings: {
         type: Boolean,
